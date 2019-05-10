@@ -26,4 +26,29 @@ class ApiService {
       return false;
     }
   }
+
+  Future<bool> updateProfile(Profile data) async {
+    final response = await client.put(
+      "$baseUrl/profile/${data.id}",
+      headers: {"content-type": "application/json"},
+      body: profileToJson(data),
+    );
+    if (response.statusCode == 200) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  Future<bool> deleteProfile(int id) async {
+    final response = await client.delete(
+      "$baseUrl/profile/$id",
+      headers: {"content-type": "application/json"},
+    );
+    if (response.statusCode == 200) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 }
