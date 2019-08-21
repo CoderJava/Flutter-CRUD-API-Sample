@@ -6,7 +6,7 @@ class ApiService {
   Client client = Client();
 
   Future<List<Profile>> getProfiles() async {
-    final response = await client.get("$baseUrl/profile");
+    final response = await client.get("$baseUrl/api/profile");
     if (response.statusCode == 200) {
       return profileFromJson(response.body);
     } else {
@@ -16,7 +16,7 @@ class ApiService {
 
   Future<bool> createProfile(Profile data) async {
     final response = await client.post(
-      "$baseUrl/profile",
+      "$baseUrl/api/profile",
       headers: {"content-type": "application/json"},
       body: profileToJson(data),
     );
@@ -29,7 +29,7 @@ class ApiService {
 
   Future<bool> updateProfile(Profile data) async {
     final response = await client.put(
-      "$baseUrl/profile/${data.id}",
+      "$baseUrl/api/profile/${data.id}",
       headers: {"content-type": "application/json"},
       body: profileToJson(data),
     );
@@ -42,7 +42,7 @@ class ApiService {
 
   Future<bool> deleteProfile(int id) async {
     final response = await client.delete(
-      "$baseUrl/profile/$id",
+      "$baseUrl/api/profile/$id",
       headers: {"content-type": "application/json"},
     );
     if (response.statusCode == 200) {
