@@ -92,7 +92,7 @@ class _FormAddScreenState extends State<FormAddScreen> {
                         _apiService.createProfile(profile).then((isSuccess) {
                           setState(() => _isLoading = false);
                           if (isSuccess) {
-                            Navigator.pop(_scaffoldState.currentState.context);
+                            Navigator.pop(_scaffoldState.currentState.context, true);
                           } else {
                             _scaffoldState.currentState.showSnackBar(SnackBar(
                               content: Text("Submit data failed"),
@@ -104,7 +104,7 @@ class _FormAddScreenState extends State<FormAddScreen> {
                         _apiService.updateProfile(profile).then((isSuccess) {
                           setState(() => _isLoading = false);
                           if (isSuccess) {
-                            Navigator.pop(_scaffoldState.currentState.context);
+                            Navigator.pop(_scaffoldState.currentState.context, true);
                           } else {
                             _scaffoldState.currentState.showSnackBar(SnackBar(
                               content: Text("Update data failed"),

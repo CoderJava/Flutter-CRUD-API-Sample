@@ -27,8 +27,7 @@ class _HomeScreenState extends State<HomeScreen> {
         builder: (BuildContext context, AsyncSnapshot<List<Profile>> snapshot) {
           if (snapshot.hasError) {
             return Center(
-              child: Text(
-                  "Something wrong with message: ${snapshot.error.toString()}"),
+              child: Text("Something wrong with message: ${snapshot.error.toString()}"),
             );
           } else if (snapshot.connectionState == ConnectionState.done) {
             List<Profile> profiles = snapshot.data;
@@ -73,27 +72,20 @@ class _HomeScreenState extends State<HomeScreen> {
                                 builder: (context) {
                                   return AlertDialog(
                                     title: Text("Warning"),
-                                    content: Text(
-                                        "Are you sure want to delete data profile ${profile.name}?"),
+                                    content: Text("Are you sure want to delete data profile ${profile.name}?"),
                                     actions: <Widget>[
                                       FlatButton(
                                         child: Text("Yes"),
                                         onPressed: () {
                                           Navigator.pop(context);
-                                          apiService
-                                              .deleteProfile(profile.id)
-                                              .then((isSuccess) {
+                                          apiService.deleteProfile(profile.id).then((isSuccess) {
                                             if (isSuccess) {
                                               setState(() {});
                                               Scaffold.of(this.context)
-                                                  .showSnackBar(SnackBar(
-                                                      content: Text(
-                                                          "Delete data success")));
+                                                  .showSnackBar(SnackBar(content: Text("Delete data success")));
                                             } else {
                                               Scaffold.of(this.context)
-                                                  .showSnackBar(SnackBar(
-                                                      content: Text(
-                                                          "Delete data failed")));
+                                                  .showSnackBar(SnackBar(content: Text("Delete data failed")));
                                             }
                                           });
                                         },
@@ -114,11 +106,13 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                         ),
                         FlatButton(
-                          onPressed: () {
-                            Navigator.push(context,
-                                MaterialPageRoute(builder: (context) {
+                          onPressed: () async {
+                            var result = await Navigator.push(context, MaterialPageRoute(builder: (context) {
                               return FormAddScreen(profile: profile);
                             }));
+                            if (result != null) {
+                              setState(() {});
+                            }
                           },
                           child: Text(
                             "Edit",

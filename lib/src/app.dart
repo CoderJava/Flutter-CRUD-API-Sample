@@ -4,7 +4,12 @@ import 'package:flutter_crud_api_sample_app/src/ui/home/home_screen.dart';
 
 GlobalKey<ScaffoldState> _scaffoldState = GlobalKey<ScaffoldState>();
 
-class App extends StatelessWidget {
+class App extends StatefulWidget {
+  @override
+  _AppState createState() => _AppState();
+}
+
+class _AppState extends State<App> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -23,13 +28,16 @@ class App extends StatelessWidget {
           ),
           actions: <Widget>[
             GestureDetector(
-              onTap: () {
-                Navigator.push(
+              onTap: () async {
+                var result = await Navigator.push(
                   _scaffoldState.currentContext,
                   MaterialPageRoute(builder: (BuildContext context) {
                     return FormAddScreen();
                   }),
                 );
+                if (result != null) {
+                  setState(() {});
+                }
               },
               child: Padding(
                 padding: const EdgeInsets.only(right: 16.0),
